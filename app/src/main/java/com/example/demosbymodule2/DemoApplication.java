@@ -10,12 +10,14 @@ import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.example.utillibrary.LogUtil;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
 public class DemoApplication extends Application {
-    private static final String TAG = "HiApplication";
+    private static final String TAG = "DemoApplication";
     @SuppressLint("StaticFieldLeak")
     public static Context context;
     @SuppressLint("StaticFieldLeak")
@@ -53,7 +55,7 @@ public class DemoApplication extends Application {
     public static void initFolder() {
         try {
 //            makeDIRAndCreateFile(Constant.DOWNLOAD_CLOUD_PATH + ".nomedia");
-            foundFolder(Constant.FILE_PATH);
+            foundFolder(Constant.APP_ROOT_PATH);
 //            makeDIRAndCreateFile(Constant.EMAIL_FILE_PATH + ".nomedia");
 //
 //            foundFolder(Constant.DOWNLOAD_LOGO_PATH);
@@ -90,6 +92,7 @@ public class DemoApplication extends Application {
      * @param folderUrl :文件夹路径
      */
     public static void foundFolder(String folderUrl) {
+        LogUtil.w(TAG, "#foundFolder:" + folderUrl);
         // 得到一个路径，内容是sdcard的文件夹路径和名字
         File file = new File(folderUrl);
         boolean result = file.exists() || file.mkdirs();
