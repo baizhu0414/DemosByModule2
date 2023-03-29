@@ -54,14 +54,12 @@ public class DemoApplication extends Application {
 
     public static void initFolder() {
         try {
-//            makeDIRAndCreateFile(Constant.DOWNLOAD_CLOUD_PATH + ".nomedia");
-            foundFolder(Constant.APP_ROOT_PATH);
-//            makeDIRAndCreateFile(Constant.EMAIL_FILE_PATH + ".nomedia");
-//
-//            foundFolder(Constant.DOWNLOAD_LOGO_PATH);
-//            foundFolder(Constant.VOIP_SDK_FILE_PATH);
+            foundFolder(Constant.APP_ROOT_PATH_INT);
+            foundFolder(Constant.APP_ROOT_PATH_EXT);
+            makeDIRAndCreateFile(Constant.APP_ROOT_PATH_INT + "/internal_log.txt");
+            makeDIRAndCreateFile(Constant.APP_ROOT_PATH_EXT + "/external_log.txt");
         } catch (SecurityException e) {
-            Log.e(TAG, "#initFolder SecurityException: ", e);
+            LogUtil.e(TAG, "#initFolder SecurityException: ", e);
             throw e;
         }
     }
@@ -72,6 +70,7 @@ public class DemoApplication extends Application {
      * @param filePath 文件路径
      */
     private static synchronized void makeDIRAndCreateFile(String filePath) {
+        LogUtil.w(TAG, "#makeDIRAndCreateFile:" + filePath);
         File file = new File(filePath);
         File parentFile = new File(file.getParent());
         try {
@@ -79,10 +78,10 @@ public class DemoApplication extends Application {
                     file.exists() || (parentFile.exists() && file.createNewFile()) || (parentFile.mkdirs() && file
                             .createNewFile());
             if (!result) {
-                Log.e(TAG, "#makeDIRAndCreateFile: create dir error--" + filePath);
+                LogUtil.e(TAG, "#makeDIRAndCreateFile: create dir error--" + filePath);
             }
         } catch (IOException e) {
-            Log.e(TAG, "#makeDIRAndCreateFile: IOException: " + filePath, e);
+            LogUtil.e(TAG, "#makeDIRAndCreateFile: IOException: " + filePath, e);
         }
     }
 
@@ -97,7 +96,7 @@ public class DemoApplication extends Application {
         File file = new File(folderUrl);
         boolean result = file.exists() || file.mkdirs();
         if (!result) {
-            Log.e(TAG, "#foundFolder: create file error---" + folderUrl);
+            LogUtil.e(TAG, "#foundFolder: create file error---" + folderUrl);
         }
     }
 

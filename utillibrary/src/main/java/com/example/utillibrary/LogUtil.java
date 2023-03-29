@@ -21,7 +21,11 @@ public class LogUtil {
     }
 
     public static void e(String TAG, String msg) {
-        Log.e(TAG, getMsg(LEVEL_W, msg));
+        Log.e(TAG, getMsg(LEVEL_E, msg));
+    }
+
+    public static void e(String TAG, String msg, Exception e) {
+        Log.e(TAG, getMsg(LEVEL_E, msg), e);
     }
 
     private static String getMsg(int level, String msg) {
