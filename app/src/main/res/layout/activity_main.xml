@@ -78,4 +78,16 @@
             android:text="插入数据"
             android:textSize="20dp" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/log_btn_file"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="打日志" />
+    </LinearLayout>
 </LinearLayout>

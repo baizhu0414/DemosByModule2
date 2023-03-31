@@ -175,6 +175,7 @@ public abstract class DatabaseUtil<T> {
             if (cursor.moveToFirst()) {
                 resultSize = cursor.getLong(0);
             }
+            cursor.close();
         } catch (Exception | Error e) {
             Log.e(TAG, "", e);
         }

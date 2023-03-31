@@ -87,13 +87,13 @@ public class StudentEntity {
     public String toString() {
         return "StudentEntity{" +
                 "id='" + id + '\'' +
-                ", age='" + age + '\'' +
+                ", age=" + age +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", location='" + location + '\'' +
-                ", validate='" + validate + '\'' +
-                ", grade='" + grade + '\'' +
-                ", sex='" + sex + '\'' +
+                ", validate=" + validate +
+                ", grade=" + grade +
+                ", sex=" + sex +
                 '}';
     }
 }
