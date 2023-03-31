@@ -3,6 +3,7 @@ package com.example.demosbymodule2;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,7 +14,8 @@ import com.example.demosbymodule2.database.student.StudentDBUtil;
 import com.example.demosbymodule2.database.student.StudentEntity;
 import com.example.demosbymodule2.database.student.StudentMetaData;
 import com.example.demosbymodule2.database.teacher.TeacherDBUtil;
-import com.example.utillibrary.LogUtil;
+import com.example.utillibrary.logutils.LogType;
+import com.example.utillibrary.logutils.LogUtil;
 
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText edtName;
     private EditText edtPhone;
     private EditText edtValidate;
+
+    //打印日志测试
+    private Button logBtnFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         edtName = findViewById(R.id.stu_name);
         edtPhone = findViewById(R.id.stu_phone);
         edtValidate = findViewById(R.id.stu_validate);
+
+        logBtnFile = findViewById(R.id.log_btn_file);
+        logBtnFile.setOnClickListener(this);
     }
 
     private void initDataBase() {
@@ -62,13 +70,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void run() {
                 StudentDBUtil stuDBUtil = StudentDBUtil.getDB();
                 TeacherDBUtil teacherDBUtil = TeacherDBUtil.getDB();
+                if (stuDBUtil == null) {
+                    LogUtil.log(LogType.LEVEL_E, TAG, "student dbUtil NULL error.");
+                    return;
+                }
                 List<StudentEntity> studentEntities = stuDBUtil.retrieveAll(null, null, StudentMetaData.STU_AGE);
                 for (StudentEntity entity : studentEntities) {
-                    LogUtil.e(TAG, entity.toString());
+                    LogUtil.log(LogType.LEVEL_E, TAG, entity.toString());
+                }
+                if (teacherDBUtil == null) {
+                    LogUtil.log(LogType.LEVEL_E, TAG, "teacher dbUtil NULL error.");
+                    return;
                 }
                 teacherSize = teacherDBUtil.countAll();
                 stuSize = stuDBUtil.countAll();
-                LogUtil.e(TAG, "dbUtil number: " + DatabaseUtil.getUtilNumber()
+                LogUtil.log(LogType.LEVEL_E, TAG, "dbUtil number: " + DatabaseUtil.getUtilNumber()
                         + " //database number:" + DatabaseUtil.getSQLiteHelperNumber());
             }
         }, "initDBThread").start();
@@ -100,9 +116,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void run() {
                     long insert = StudentDBUtil.getDB().insert(entity);
-                    LogUtil.i(TAG, "insert id:" + insert);
+                    LogUtil.log(LogType.LEVEL_I, TAG, "insert id:" + insert);
                 }
             }, "insertDBThread").start();
+        } else if (v.getId() == R.id.log_btn_file) {
+            LogUtil.log(LogType.LEVEL_I, TAG, "Test log print.");
         }
     }
 }
