@@ -3,6 +3,7 @@ package com.example.utillibrary.logutils;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -22,6 +23,7 @@ public class LogFileHandler extends Handler {
     @Override
     public void handleMessage(@NonNull Message msg) {
         String content = (String) msg.obj;
+        Log.w("DemoApplication", content);
 
         FileWriter fileWriter = null;
         File logFile = getLogFile(folderPath, LogUtil.LOG_FILE_NAME);
@@ -61,9 +63,9 @@ public class LogFileHandler extends Handler {
             folder.mkdirs();
         }
 
-        int newFileCount = 0;
-        File newFile;
-        File existingFile = null;
+        int newFileCount = 0;//1,
+        File newFile;//file1(N)
+        File existingFile = null;//file0(Y)
 
         newFile = new File(folder, String.format("%s_%s.csv", fileName, newFileCount));
         while (newFile.exists()) {
@@ -72,7 +74,7 @@ public class LogFileHandler extends Handler {
             newFile = new File(folder, String.format("%s_%s.csv", fileName, newFileCount));
         }
 
-        if (existingFile != null) {
+        if (existingFile != null) {//file0
             if (existingFile.length() >= LogUtil.MAX_SIZE) {
                 return newFile;
             }

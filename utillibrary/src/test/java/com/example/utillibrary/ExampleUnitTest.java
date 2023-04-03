@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import com.example.utillibrary.logutils.LogUtil;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *

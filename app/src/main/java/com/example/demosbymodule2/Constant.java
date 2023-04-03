@@ -12,6 +12,7 @@ public class Constant {
     public static String APP_ROOT_EXT_DIR = Environment.getExternalStorageDirectory().getAbsolutePath();
     /**
      * 此处保存日志文件
+     * /storage/emulated/0/Android/data/com.example.demosbymodule2/files
      */
     public static String APP_LOG_PATH = APP_ROOT_PATH_EXT;
 }
