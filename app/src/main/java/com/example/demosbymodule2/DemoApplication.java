@@ -7,14 +7,12 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
+import com.example.utillibrary.fileutils.FileUtil;
 import com.example.utillibrary.logutils.LogType;
 import com.example.utillibrary.logutils.LogUtil;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Locale;
 
 public class DemoApplication extends Application {
@@ -56,52 +54,11 @@ public class DemoApplication extends Application {
 
     public static void initFolder() {
         try {
-            foundFolder(Constant.APP_ROOT_PATH_INT);
-            foundFolder(Constant.APP_ROOT_PATH_EXT);
-//            makeDIRAndCreateFile(Constant.APP_ROOT_PATH_INT + "/internal_log.txt");
-//            makeDIRAndCreateFile(Constant.APP_ROOT_PATH_EXT + "/external_log.txt");
+            FileUtil.foundFolder(Constant.APP_ROOT_PATH_INT, TAG);
+            FileUtil.foundFolder(Constant.APP_ROOT_PATH_EXT, TAG);
         } catch (SecurityException e) {
             LogUtil.log(LogType.LEVEL_E, TAG, "#initFolder SecurityException: " + e.getMessage());
             throw e;
-        }
-    }
-
-    /**
-     * 创建目录和文件， 如果目录或文件不存在，则创建出来
-     *
-     * @param filePath 文件路径
-     */
-    private static synchronized void makeDIRAndCreateFile(String filePath) {
-        LogUtil.log(LogType.LEVEL_W, TAG, "#makeDIRAndCreateFile:" + filePath);
-        File file = new File(filePath);
-        if (TextUtils.isEmpty(file.getParent())) {
-            return;
-        }
-        File parentFile = new File(file.getParent());
-        try {
-            boolean result =
-                    file.exists() || (parentFile.exists() && file.createNewFile()) || (parentFile.mkdirs() && file
-                            .createNewFile());
-            if (!result) {
-                LogUtil.log(LogType.LEVEL_E, TAG, "#makeDIRAndCreateFile: create dir error--" + filePath);
-            }
-        } catch (IOException e) {
-            LogUtil.log(LogType.LEVEL_E, TAG, "#makeDIRAndCreateFile: IOException: " + filePath + "\n" + e);
-        }
-    }
-
-    /**
-     * sd卡中创建自定义文件夹
-     *
-     * @param folderUrl :文件夹路径
-     */
-    public static void foundFolder(String folderUrl) {
-        LogUtil.log(LogType.LEVEL_W, TAG, "#foundFolder:" + folderUrl);
-        // 得到一个路径，内容是sdcard的文件夹路径和名字
-        File file = new File(folderUrl);
-        boolean result = file.exists() || file.mkdirs();
-        if (!result) {
-            LogUtil.log(LogType.LEVEL_E, TAG, "#foundFolder: create file error---" + folderUrl);
         }
     }
 
