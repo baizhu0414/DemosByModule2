@@ -1,14 +1,12 @@
 package com.example.utillibrary;
 
-import android.content.Context;
-
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import com.example.utillibrary.logutils.LogType;
+import com.example.utillibrary.logutils.LogTypeDisk;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -17,10 +15,11 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+    String TAG = ExampleInstrumentedTest.class.getSimpleName();
+
     @Test
     public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.utillibrary.test", appContext.getPackageName());
+        LogTypeDisk logTypeDisk = new LogTypeDisk("/storage/emulated/0/Android/data/com.example.demosbymodule2/files");
+        logTypeDisk.logAboveLevel(LogType.LEVEL_E, TAG + " Test log util:#useAppContext");
     }
 }
