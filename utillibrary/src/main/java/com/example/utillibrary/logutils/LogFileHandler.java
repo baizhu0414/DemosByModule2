@@ -23,7 +23,6 @@ public class LogFileHandler extends Handler {
     @Override
     public void handleMessage(@NonNull Message msg) {
         String content = (String) msg.obj;
-        Log.w("DemoApplication", content);
 
         FileWriter fileWriter = null;
         File logFile = getLogFile(folderPath, LogUtil.LOG_FILE_NAME);

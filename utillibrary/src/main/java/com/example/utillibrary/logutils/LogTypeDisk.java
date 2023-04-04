@@ -17,7 +17,7 @@ public class LogTypeDisk implements LogType {
     public void logAboveLevel(int level, String msg) {
         if (level >= LOWEST_LEVEL) {
             // print to file
-            logFileHandler.sendMessage(logFileHandler.obtainMessage(LOWEST_LEVEL, msg));
+            logFileHandler.sendMessage(logFileHandler.obtainMessage(level, msg));
         }
     }
 
