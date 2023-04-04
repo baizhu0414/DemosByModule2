@@ -15,8 +15,8 @@ import java.util.Locale;
  */
 public class LogUtil {
     public static final String TAG = "LogUtil";
-    // 单个文件最大字节数
-    public static final int MAX_SIZE = 500 * 1024;
+    // 单个文件最大字节数500KB
+    public static final int MAX_SIZE = 500 * 1024 * 8;
     public static final String LOG_FILE_NAME = "log_" + BuildConfig.BUILD_TYPE;
     private static final String NEW_LINE = System.getProperty("line.separator");
 
