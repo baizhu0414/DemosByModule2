@@ -11,6 +11,8 @@ public class LogTypeDisk implements LogType {
         HandlerThread handlerThread = new HandlerThread(logThreadName, Thread.NORM_PRIORITY);
         handlerThread.start();
         this.logFileHandler = new LogFileHandler(handlerThread.getLooper(), folderPath);
+        // 崩溃日志捕获
+        Thread.setDefaultUncaughtExceptionHandler((Thread.UncaughtExceptionHandler) this.logFileHandler);
     }
 
     @Override

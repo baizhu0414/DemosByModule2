@@ -19,6 +19,7 @@ public class LogUtil {
     public static final int MAX_SIZE = 500 * 1024 * 8;
     public static final String LOG_FILE_NAME = "log_" + BuildConfig.BUILD_TYPE;
     private static final String NEW_LINE = System.getProperty("line.separator");
+    public static final String CRASH_FILE_NAME = "crash_log_" + BuildConfig.BUILD_TYPE;
 
     static LogType logType;
     private static final DateFormat dateFormat
@@ -50,11 +51,15 @@ public class LogUtil {
         }
         leveInfoStr.append(", ")
                 .append(dateFormat.format(System.currentTimeMillis()))
-                .append(", thread:").append(Thread.currentThread().getName())
+                .append(", thread:").append(getCurrentThreadName())
                 .append(", tag:").append(TAG)
                 .append(", msg:").append(msg.replace(",", "，"))
-                .append(NEW_LINE);
+                .append(NEW_LINE).append(NEW_LINE);
         logType.logAboveLevel(level, leveInfoStr.toString());
+    }
+
+    public static String getCurrentThreadName() {
+        return Thread.currentThread().getName();
     }
 
     public static void init(String folder) {
