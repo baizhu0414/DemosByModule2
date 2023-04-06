@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }, "insertDBThread").start();
         } else if (v.getId() == R.id.log_btn_file) {
             LogUtil.log(LogType.LEVEL_I, TAG, "Test log print.");
+            int errorTest = 1 / 0;
         }
     }
 }

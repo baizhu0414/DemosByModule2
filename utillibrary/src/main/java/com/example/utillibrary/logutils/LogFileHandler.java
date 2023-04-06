@@ -6,14 +6,19 @@ import android.os.Message;
 
 import androidx.annotation.NonNull;
 
+import com.example.utillibrary.normalutil.DeviceUtil;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class LogFileHandler extends Handler {
+public class LogFileHandler extends Handler implements Thread.UncaughtExceptionHandler {
     private final String folderPath;
 
     LogFileHandler(@NonNull Looper looper, String folderPath) {
@@ -21,16 +26,49 @@ public class LogFileHandler extends Handler {
         this.folderPath = folderPath;
     }
 
-    @SuppressWarnings("checkstyle:emptyblock")
+    /**
+     * 处理普通日志
+     */
     @Override
     public void handleMessage(@NonNull Message msg) {
         String content = (String) msg.obj;
-        FileWriter fileWriter = null;
         File logFile = getLogFileByDate(folderPath, LogUtil.LOG_FILE_NAME);
+        writeLog(logFile, content);
+    }
+
+    /**
+     * 处理崩溃日志,必须继承{@link Thread.UncaughtExceptionHandler}
+     */
+    @Override
+    public void uncaughtException(@NonNull Thread t, @NonNull Throwable e) {
+        // 处理异常--start
+        Writer writer = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(writer);
+        e.printStackTrace(printWriter);
+        Throwable cause = e.getCause();
+        while (cause != null) {
+            cause.printStackTrace(printWriter);
+            cause = cause.getCause();
+        }
+        printWriter.close();
+        String errorStr = writer.toString();
+
+        File logFile = getLogFileByDate(folderPath, LogUtil.CRASH_FILE_NAME);
+        String exceptionStr = DeviceUtil.collectDeviceInfo()
+                .append(LogUtil.getCurrentThreadName()).append("\n")
+                .append(errorStr).toString();
+        writeLog(logFile, exceptionStr);
+    }
+
+    /**
+     * 核心写日志函数
+     */
+    private void writeLog(File logFile, String content) {
+        FileWriter fileWriter = null;
         try {
             // logFile不存在则会创建！
             fileWriter = new FileWriter(logFile, true);
-            writeLog(fileWriter, content);
+            fileWriter.append(content);
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
@@ -41,17 +79,6 @@ public class LogFileHandler extends Handler {
                 } catch (IOException e1) { /* fail silently */ }
             }
         }
-    }
-
-    /**
-     * This is always called on a single background thread.
-     * Implementing classes must ONLY write to the fileWriter and nothing more.
-     * The abstract class takes care of everything else including close the stream and catching IOException
-     *
-     * @param fileWriter an instance of FileWriter already initialised to the correct file
-     */
-    private void writeLog(@NonNull FileWriter fileWriter, @NonNull String content) throws IOException {
-        fileWriter.append(content);
     }
 
     /**
