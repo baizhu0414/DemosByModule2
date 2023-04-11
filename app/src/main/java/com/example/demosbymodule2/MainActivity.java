@@ -1,13 +1,11 @@
 package com.example.demosbymodule2;
 
-import android.os.Bundle;
+import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.demosbymodule2.database.sqlutil.DatabaseUtil;
 import com.example.demosbymodule2.database.student.StudentDBUtil;
@@ -19,7 +17,7 @@ import com.example.utillibrary.logutils.LogUtil;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
     long stuSize = 0;
@@ -36,22 +34,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button logBtnFile;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initDataBase();
-        initView();
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        DatabaseUtil.closeAllDatabases();
-    }
-
-    private void initView() {
+    public void initView() {
         tvInsert = findViewById(R.id.stu_tv_insert);
-        tvInsert.setOnClickListener(this);
 
         edtAge = findViewById(R.id.stu_age);
         edtGrade = findViewById(R.id.stu_grade);
@@ -61,6 +49,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         edtValidate = findViewById(R.id.stu_validate);
 
         logBtnFile = findViewById(R.id.log_btn_file);
+    }
+
+    @Override
+    public void initParam() {
+        initDataBase();
+    }
+
+    @Override
+    public void initListener(Context context) {
+        tvInsert.setOnClickListener(this);
         logBtnFile.setOnClickListener(this);
     }
 
@@ -121,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }, "insertDBThread").start();
         } else if (v.getId() == R.id.log_btn_file) {
             LogUtil.log(LogType.LEVEL_I, TAG, "Test log print.");
-            int errorTest = 1 / 0;
         }
     }
 }

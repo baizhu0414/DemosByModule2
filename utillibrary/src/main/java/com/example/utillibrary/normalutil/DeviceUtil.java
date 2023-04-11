@@ -2,6 +2,9 @@ package com.example.utillibrary.normalutil;
 
 import android.os.Build;
 
+/**
+ * 获取设备信息。
+ */
 public class DeviceUtil {
     public static StringBuilder collectDeviceInfo() {
         StringBuilder deviceStr = new StringBuilder();
