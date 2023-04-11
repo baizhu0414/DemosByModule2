@@ -89,5 +89,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="打日志" />
+
+        <Button
+            android:id="@+id/per_btn_req"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="3dp"
+            android:text="申请权限"/>
     </LinearLayout>
 </LinearLayout>

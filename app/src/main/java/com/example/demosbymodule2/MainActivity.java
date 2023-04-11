@@ -1,13 +1,11 @@
 package com.example.demosbymodule2;
 
-import android.os.Bundle;
+import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.demosbymodule2.database.sqlutil.DatabaseUtil;
 import com.example.demosbymodule2.database.student.StudentDBUtil;
@@ -16,10 +14,13 @@ import com.example.demosbymodule2.database.student.StudentMetaData;
 import com.example.demosbymodule2.database.teacher.TeacherDBUtil;
 import com.example.utillibrary.logutils.LogType;
 import com.example.utillibrary.logutils.LogUtil;
+import com.example.utillibrary.permissionutils.IPermissionListener;
+import com.example.utillibrary.permissionutils.PermissionGroup;
+import com.example.utillibrary.permissionutils.PermissionUtil;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
     long stuSize = 0;
@@ -34,24 +35,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //打印日志测试
     private Button logBtnFile;
+    // 申请权限测试
+    private Button perBtnReq;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initDataBase();
-        initView();
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        DatabaseUtil.closeAllDatabases();
-    }
-
-    private void initView() {
+    public void initView() {
         tvInsert = findViewById(R.id.stu_tv_insert);
-        tvInsert.setOnClickListener(this);
 
         edtAge = findViewById(R.id.stu_age);
         edtGrade = findViewById(R.id.stu_grade);
@@ -61,7 +54,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         edtValidate = findViewById(R.id.stu_validate);
 
         logBtnFile = findViewById(R.id.log_btn_file);
+        perBtnReq = findViewById(R.id.per_btn_req);
+    }
+
+    @Override
+    public void initParam() {
+        initDataBase();
+    }
+
+    @Override
+    public void initListener(Context context) {
+        tvInsert.setOnClickListener(this);
         logBtnFile.setOnClickListener(this);
+        perBtnReq.setOnClickListener(this);
     }
 
     private void initDataBase() {
@@ -121,7 +126,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }, "insertDBThread").start();
         } else if (v.getId() == R.id.log_btn_file) {
             LogUtil.log(LogType.LEVEL_I, TAG, "Test log print.");
-            int errorTest = 1 / 0;
+        } else if (v.getId() == R.id.per_btn_req) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    LogUtil.log(LogType.LEVEL_I, TAG, "per 原始 thread id:" + Thread.currentThread());
+                    PermissionUtil.PermissionReqBuilder.withActivity(MainActivity.this)
+//                    .withPermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+                            .withPermission(PermissionGroup.STORAGE_GROUP)
+                            .withPermissionListener(new IPermissionListener() {
+                                @Override
+                                public void onPermissionGranted(int reqCode) {
+                                    LogUtil.log(LogType.LEVEL_I, TAG, "per 成功回调 thread id:" + Thread.currentThread());
+                                }
+
+                                @Override
+                                public void onPermissionDenied(int reqCode, List<String> deniedPer) {
+                                    PermissionUtil.reqExternalStorage(MainActivity.this);
+                                    LogUtil.log(LogType.LEVEL_I, TAG, "per 失败回调 thread id:" + Thread.currentThread() + " 失败权限：" + deniedPer);
+                                }
+                            })
+                            .withReqCode(123)
+                            .callbackOnUiThread(false)
+                            .startRequest();
+                }
+            }, "testPerThread").start();
         }
     }
 }

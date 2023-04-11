@@ -30,23 +30,23 @@ public class LogUtil {
         switch (level) {
             case LogType.LEVEL_D:
                 Log.d(TAG, msg);
-                leveInfoStr.append("D");
+                leveInfoStr.append("[D]");
                 break;
             case LogType.LEVEL_I:
                 Log.i(TAG, msg);
-                leveInfoStr.append("I");
+                leveInfoStr.append("[I]");
                 break;
             case LogType.LEVEL_W:
                 Log.w(TAG, msg);
-                leveInfoStr.append("W");
+                leveInfoStr.append("[W]");
                 break;
             case LogType.LEVEL_E:
                 Log.e(TAG, msg);
-                leveInfoStr.append("E");
+                leveInfoStr.append("[E]");
                 break;
             default:
                 Log.v(TAG, msg);
-                leveInfoStr.append("V");
+                leveInfoStr.append("[V]");
                 break;
         }
         leveInfoStr.append(", ")

@@ -37,7 +37,7 @@ public class DemoApplication extends Application {
         return handler;
     }
 
-    // 程序句柄获取函数 YQH 20120706
+    // 程序句柄获取函数
     public static DemoApplication getInstance() {
         return instance;
     }
@@ -45,7 +45,7 @@ public class DemoApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
-        // 初始化 主线程刷新界面handler YQH 20120706
+        // 初始化 主线程刷新界面handler
         handler = new Handler();
         LogUtil.init(Constant.APP_LOG_PATH);
         // 初始化文件夹
@@ -54,7 +54,7 @@ public class DemoApplication extends Application {
 
     public static void initFolder() {
         try {
-            FileUtil.foundFolder(Constant.APP_ROOT_PATH_INT, TAG);
+//            FileUtil.foundFolder(Constant.APP_ROOT_PATH_INT, TAG);
             FileUtil.foundFolder(Constant.APP_ROOT_PATH_EXT, TAG);
         } catch (SecurityException e) {
             LogUtil.log(LogType.LEVEL_E, TAG, "#initFolder SecurityException: " + e.getMessage());
@@ -63,7 +63,7 @@ public class DemoApplication extends Application {
     }
 
     /**
-     * 非主线程刷新界面调用函数 YQH 20120706
+     * 非主线程刷新界面调用函数
      */
     public void runOnUIThread(Runnable r) {
         if (r == null) {

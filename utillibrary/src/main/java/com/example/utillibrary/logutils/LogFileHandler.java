@@ -129,6 +129,6 @@ public class LogFileHandler extends Handler implements Thread.UncaughtExceptionH
                 = new SimpleDateFormat("yyyyMMdd", Locale.CHINA);
         String suffix = dateFormat.format(System.currentTimeMillis());
         // 新建文件(不一定存在)
-        return new File(folder, String.format("%s_%s.txt", fileName, suffix));
+        return new File(folder, String.format("%s_%s.log", fileName, suffix));
     }
 }

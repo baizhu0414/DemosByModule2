@@ -20,7 +20,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public static final String TAG = "SQLiteHelper";
     private SQLiteDatabase db;
     /* 数据库版本*/
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
     /* 数据格式类型*/
     public static final String COLUMN_TYPE_TEXT = "TEXT";
     public static final String COLUMN_TYPE_INTEGER = "INTEGER";
@@ -97,6 +97,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     private void createTable(SQLiteDatabase db) {
         db.execSQL(CREATE_STUDENT_TABLE);
+        db.execSQL(CREATE_TEACHER_TABLE);
         Log.i(TAG, "#createTable");
     }
 
@@ -133,18 +134,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private void updateFromV1ToV5(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion == 1) {
             db.execSQL(sqlColumnADD(StudentMetaData.TABLE_NAME, StudentMetaData.STU_SEX, COLUMN_TYPE_TEXT));
-            Log.w(TAG, "update from 1 to " + newVersion);
         }
         if (oldVersion <= 2) {
             // sql
-            db.execSQL(CREATE_TEACHER_TABLE);
-            Log.w(TAG, "update from " + oldVersion + " to " + newVersion);
+//            db.execSQL(CREATE_TEACHER_TABLE);
         }
         if (oldVersion <= 3) {
             // sql
             db.execSQL(sqlColumnADD(TeacherMetaData.TABLE_NAME, TeacherMetaData.TEACHER_SUBJECT, COLUMN_TYPE_TEXT));
-            Log.w(TAG, "update from " + oldVersion + " to " + newVersion);
         }
+        Log.w(TAG, "update from " + oldVersion + " to " + newVersion);
     }
 
     /**

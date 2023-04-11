@@ -39,11 +39,13 @@ public class FileUtil {
      * @param folderUrl :文件夹路径
      */
     public static void foundFolder(String folderUrl, String TAG) {
-        LogUtil.log(LogType.LEVEL_W, TAG, "#foundFolder:" + folderUrl);
         // 得到一个路径，内容是sdcard的文件夹路径和名字
         File file = new File(folderUrl);
-        if(!file.exists()) {
-            file.mkdirs();
+        if (!file.exists()) {
+            boolean dirResult = file.mkdirs();
+            if (!dirResult) {
+                LogUtil.log(LogType.LEVEL_E, TAG, "#foundFolder:" + folderUrl + " Fail !!!");
+            }
         }
     }
 }
