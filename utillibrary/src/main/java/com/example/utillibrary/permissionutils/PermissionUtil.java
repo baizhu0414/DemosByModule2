@@ -1,14 +1,21 @@
 package com.example.utillibrary.permissionutils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.PermissionChecker;
+
+import com.example.utillibrary.logutils.LogType;
+import com.example.utillibrary.logutils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,13 +30,14 @@ public class PermissionUtil {
     private static final String TAG = "PermissionUtil";
     // 申请权限的代码段数，每次调用申请权限则增加一个。
     static final Queue<PermissionReqBuilder> permissionRequestQueue = new LinkedList<>();
+    public static final int REQUEST_STORAGE_PERMISSION_CODE = 91;
 
     /**
-     * 请求权限的结果回调
+     * 所有{@link PermissionReqBuilder#requestPermissions()}请求权限的结果回调
      */
     public static void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         PermissionReqBuilder permissionReq = permissionRequestQueue.poll();
-        if (permissionReq == null) {
+        if (permissionReq == null || requestCode != permissionReq.reqCode) {
             return;
         }
         // 1. 分拣授权/拒绝的权限
@@ -56,6 +64,11 @@ public class PermissionUtil {
                 @Override
                 public void run() {
                     callRequestResultBack(permissionReq, grantedPermissions, deniedPermissions);
+                    // 结束主线程
+                    Looper handlerLooper = Looper.myLooper();
+                    if (permissionReq.isHandlerLoop && handlerLooper != null) {
+                        handlerLooper.quit();
+                    }
                 }
             });
         } else {
@@ -78,13 +91,33 @@ public class PermissionUtil {
         if (req.listener != null) {
             if (!grantedPer.isEmpty()) {
                 req.listener.onPermissionGranted(req.reqCode);
+                LogUtil.log(LogType.LEVEL_W, TAG, "动态申请权限：" + grantedPer + " 成功。" + Thread.currentThread());
             }
             if (!deniedPer.isEmpty()) {
-                // 此处可以引导到手动授权页面
-                req.listener.onPermissionDenied(req.reqCode);
+                // 此处可以引导到手动授权页面(如：悬浮窗、ManageExternalStorage等)
+                req.listener.onPermissionDenied(req.reqCode, deniedPer);
+                LogUtil.log(LogType.LEVEL_W, TAG, "动态申请权限：" + deniedPer + " 失败。" + Thread.currentThread());
             }
         }
 
+    }
+
+    /**
+     * Android11后不能写外存，需要在失败回调中这样申请。
+     */
+    public static void reqExternalStorage(Activity activity) {
+        if (PermissionGroup.sdkAboveQ_29() && !Environment.isExternalStorageManager()) {
+            try {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.addCategory("android.intent.category.DEFAULT");
+                intent.setData(Uri.parse(String.format("package:%s", activity.getPackageName())));
+                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_CODE);
+            } catch (Exception e) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_CODE);
+            }
+        }
     }
 
     public static class PermissionReqBuilder {
@@ -101,7 +134,7 @@ public class PermissionUtil {
         }
 
         // 1
-        public PermissionReqBuilder withActivity(Activity activity) {
+        public static PermissionReqBuilder withActivity(Activity activity) {
             return new PermissionReqBuilder(activity);
         }
 
@@ -155,7 +188,7 @@ public class PermissionUtil {
                     permissionRequestQueue.add(this);
                 }
                 requestPermissions();
-                if (!isUiThread && handler == null) {
+                if (isUiThread && handler == null) {
                     if (Looper.myLooper() == null) {
                         Looper.prepare();
                         handler = new Handler(Looper.myLooper());
@@ -186,7 +219,7 @@ public class PermissionUtil {
         }
 
         /**
-         * List->String[]
+         * ( String[]...String[] )->String[]
          */
         private String[] concatPermissions(String[]... permissions) {
             List<String> result = new ArrayList<>();
@@ -195,5 +228,5 @@ public class PermissionUtil {
             }
             return result.toArray(new String[0]);
         }
-    }
+    } // End Request Builder
 }
