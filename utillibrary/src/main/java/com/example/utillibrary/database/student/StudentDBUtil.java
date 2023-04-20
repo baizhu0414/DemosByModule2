@@ -1,11 +1,10 @@
-package com.example.demosbymodule2.database.student;
+package com.example.utillibrary.database.student;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.demosbymodule2.database.DBMetaData;
-import com.example.demosbymodule2.database.sqlutil.DatabaseUtil;
+import com.example.utillibrary.database.sqlutil.DatabaseUtil;
 
 /**
  * student表的数据库操作对象。数据库名参考{@see #databaseName},允许多个Util类公用一个name。

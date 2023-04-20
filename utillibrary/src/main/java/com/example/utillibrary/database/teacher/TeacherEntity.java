@@ -1,4 +1,4 @@
-package com.example.demosbymodule2.database.teacher;
+package com.example.utillibrary.database.teacher;
 
 public class TeacherEntity {
     String id;

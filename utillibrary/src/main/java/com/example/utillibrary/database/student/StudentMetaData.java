@@ -1,6 +1,6 @@
-package com.example.demosbymodule2.database.student;
+package com.example.utillibrary.database.student;
 
-import com.example.demosbymodule2.database.DBMetaData;
+import com.example.utillibrary.database.DBMetaData;
 
 /**
  * 数据库字段名称

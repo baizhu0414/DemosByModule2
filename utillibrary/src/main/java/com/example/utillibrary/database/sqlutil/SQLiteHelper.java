@@ -1,14 +1,14 @@
-package com.example.demosbymodule2.database.sqlutil;
+package com.example.utillibrary.database.sqlutil;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.demosbymodule2.DemoApplication;
-import com.example.demosbymodule2.database.student.StudentMetaData;
-import com.example.demosbymodule2.database.teacher.TeacherMetaData;
-import com.example.demosbymodule2.logic.StudentLogic;
+import com.example.utillibrary.basicui.DemoApplication;
+import com.example.utillibrary.database.logic.StudentLogic;
+import com.example.utillibrary.database.student.StudentMetaData;
+import com.example.utillibrary.database.teacher.TeacherMetaData;
 
 
 /**

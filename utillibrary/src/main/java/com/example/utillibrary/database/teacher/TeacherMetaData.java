@@ -1,6 +1,6 @@
-package com.example.demosbymodule2.database.teacher;
+package com.example.utillibrary.database.teacher;
 
-import com.example.demosbymodule2.database.DBMetaData;
+import com.example.utillibrary.database.DBMetaData;
 
 /* version2:新增*/
 public class TeacherMetaData implements DBMetaData {

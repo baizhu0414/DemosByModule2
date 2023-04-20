@@ -48,4 +48,12 @@ public class FileUtil {
             }
         }
     }
+
+    /**
+     * @return true if file/folder exist.
+     */
+    public static boolean fileFolderExist(String path) {
+        File file = new File(path);
+        return file.exists();
+    }
 }

@@ -7,11 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.demosbymodule2.database.sqlutil.DatabaseUtil;
-import com.example.demosbymodule2.database.student.StudentDBUtil;
-import com.example.demosbymodule2.database.student.StudentEntity;
-import com.example.demosbymodule2.database.student.StudentMetaData;
-import com.example.demosbymodule2.database.teacher.TeacherDBUtil;
+import com.example.utillibrary.database.sqlutil.DatabaseUtil;
+import com.example.utillibrary.database.student.StudentDBUtil;
+import com.example.utillibrary.database.student.StudentEntity;
+import com.example.utillibrary.database.student.StudentMetaData;
+import com.example.utillibrary.database.teacher.TeacherDBUtil;
+import com.example.utillibrary.normalutil.Utils;
+import com.example.utillibrary.basicui.BaseActivity;
 import com.example.utillibrary.logutils.LogType;
 import com.example.utillibrary.logutils.LogUtil;
 import com.example.utillibrary.permissionutils.IPermissionListener;
@@ -125,6 +127,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
             }, "insertDBThread").start();
         } else if (v.getId() == R.id.log_btn_file) {
+            Utils.makeText("点击打印日志...");
             LogUtil.log(LogType.LEVEL_I, TAG, "Test log print.");
         } else if (v.getId() == R.id.per_btn_req) {
             new Thread(new Runnable() {
@@ -142,7 +145,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                                 @Override
                                 public void onPermissionDenied(int reqCode, List<String> deniedPer) {
-                                    PermissionUtil.reqExternalStorage(MainActivity.this);
+                                    PermissionUtil.reqExternalManager(MainActivity.this);
                                     LogUtil.log(LogType.LEVEL_I, TAG, "per 失败回调 thread id:" + Thread.currentThread() + " 失败权限：" + deniedPer);
                                 }
                             })

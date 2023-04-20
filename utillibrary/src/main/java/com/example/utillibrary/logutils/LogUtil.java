@@ -1,5 +1,6 @@
 package com.example.utillibrary.logutils;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.utillibrary.BuildConfig;

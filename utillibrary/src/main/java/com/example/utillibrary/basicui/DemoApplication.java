@@ -1,4 +1,4 @@
-package com.example.demosbymodule2;
+package com.example.utillibrary.basicui;
 
 import android.annotation.SuppressLint;
 import android.app.Application;

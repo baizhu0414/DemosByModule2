@@ -1,10 +1,10 @@
-package com.example.demosbymodule2.database.teacher;
+package com.example.utillibrary.database.teacher;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.demosbymodule2.database.sqlutil.DatabaseUtil;
+import com.example.utillibrary.database.sqlutil.DatabaseUtil;
 
 public class TeacherDBUtil extends DatabaseUtil<TeacherEntity> {
 

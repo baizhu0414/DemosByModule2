@@ -1,4 +1,4 @@
-package com.example.demosbymodule2.database.sqlutil;
+package com.example.utillibrary.database.sqlutil;
 
 
 import android.content.ContentValues;

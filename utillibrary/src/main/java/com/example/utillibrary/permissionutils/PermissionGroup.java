@@ -6,7 +6,7 @@ import android.os.Build;
 
 public class PermissionGroup {
     /**
-     * Android11需要另外调用{@link PermissionUtil#reqExternalStorage(Activity)},并注册
+     * Android11需要另外调用{@link PermissionUtil#reqExternalManager(Activity)},并注册
      * {@code Manifest.permission.MANAGE_EXTERNAL_STORAGE}
      */
     public static String[] STORAGE_GROUP;
@@ -97,9 +97,9 @@ public class PermissionGroup {
     }
 
     /**
-     * 判断sdk版本大于29，即Android版本是否大于10
+     * 判断sdk版本大于29，即Android版本是否大于等于11;
      *
-     * @return true if sdk version > 29, 至少android11。
+     * @return true if sdk version > 29, 至少 android11。
      */
     public static boolean sdkAboveQ_29() {
         return Build.VERSION.SDK_INT > Build.VERSION_CODES.Q;

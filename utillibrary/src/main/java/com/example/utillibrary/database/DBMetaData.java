@@ -1,4 +1,4 @@
-package com.example.demosbymodule2.database;
+package com.example.utillibrary.database;
 
 /**
  * 存储数据库名称

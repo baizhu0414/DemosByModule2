@@ -5,9 +5,9 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.example.demosbymodule2.database.student.StudentDBUtil;
-import com.example.demosbymodule2.database.student.StudentEntity;
-import com.example.demosbymodule2.database.student.StudentMetaData;
+import com.example.utillibrary.database.student.StudentDBUtil;
+import com.example.utillibrary.database.student.StudentEntity;
+import com.example.utillibrary.database.student.StudentMetaData;
 
 import java.util.List;
 

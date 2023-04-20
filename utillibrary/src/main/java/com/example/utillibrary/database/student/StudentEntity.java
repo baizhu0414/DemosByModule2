@@ -1,4 +1,4 @@
-package com.example.demosbymodule2.database.student;
+package com.example.utillibrary.database.student;
 
 // 向上提取一个父类，并且集成comparator和Cloneable
 public class StudentEntity {

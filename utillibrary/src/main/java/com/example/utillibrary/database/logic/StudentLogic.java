@@ -1,4 +1,4 @@
-package com.example.demosbymodule2.logic;
+package com.example.utillibrary.database.logic;
 
 public class StudentLogic {
     /* 默认存在的数据，初始化时一定要存在*/

@@ -1,6 +1,8 @@
 package com.example.utillibrary.permissionutils;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -30,6 +32,7 @@ public class PermissionUtil {
     private static final String TAG = "PermissionUtil";
     // 申请权限的代码段数，每次调用申请权限则增加一个。
     static final Queue<PermissionReqBuilder> permissionRequestQueue = new LinkedList<>();
+    // 专门用来请求管理外存权限
     public static final int REQUEST_STORAGE_PERMISSION_CODE = 91;
 
     /**
@@ -102,24 +105,6 @@ public class PermissionUtil {
 
     }
 
-    /**
-     * Android11后不能写外存，需要在失败回调中这样申请。
-     */
-    public static void reqExternalStorage(Activity activity) {
-        if (PermissionGroup.sdkAboveQ_29() && !Environment.isExternalStorageManager()) {
-            try {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                intent.addCategory("android.intent.category.DEFAULT");
-                intent.setData(Uri.parse(String.format("package:%s", activity.getPackageName())));
-                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_CODE);
-            } catch (Exception e) {
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
-                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_CODE);
-            }
-        }
-    }
-
     public static class PermissionReqBuilder {
         Activity reqPerActivity;
         String[] permissions;
@@ -146,7 +131,9 @@ public class PermissionUtil {
             return this;
         }
 
-        // 3
+        /**
+         * 3.isUiThread=true则listener的回调可操作UI
+         */
         public PermissionReqBuilder withPermissionListener(IPermissionListener listener) {
             this.listener = listener;
             return this;
@@ -229,4 +216,42 @@ public class PermissionUtil {
             return result.toArray(new String[0]);
         }
     } // End Request Builder
+
+    /**
+     * Android11后不能写外存,申请步骤：
+     * 1.失败回调{@link IPermissionListener#onPermissionDenied}中调用此函数。
+     * 2.在{@code BaseActivity#onActivityResult(int, int, Intent)}处理后续事务。
+     */
+    public static void reqExternalManager(Activity activity) {
+        if (PermissionGroup.sdkAboveQ_29() && !Environment.isExternalStorageManager()) {
+            try {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.addCategory("android.intent.category.DEFAULT");
+                intent.setData(Uri.parse(String.format("package:%s", activity.getPackageName())));
+                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_CODE);
+            } catch (Exception e) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                activity.startActivityForResult(intent, REQUEST_STORAGE_PERMISSION_CODE);
+            }
+        }
+    }
+
+    public static boolean isExternalManager() {
+        return PermissionGroup.sdkAboveQ_29() && Environment.isExternalStorageManager();
+    }
+
+    /**
+     * @return true if external all storage accession permitted.
+     */
+    public static boolean isExternalReadWriteManager(Context context) {
+        boolean managePer = isExternalManager();
+        boolean readWritePer =
+                (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED)
+                        && (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED);
+        return (managePer && readWritePer);
+    }
+
 }
