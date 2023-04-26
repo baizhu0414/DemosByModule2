@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- action bar的图片背景色-->
+    <color name="c_1_img_press_t">#26FFFFFF</color>
+    <color name="c_1_img_press_f">#FDFDFDFD</color>
+    <!-- action bar字体颜色-->
+    <color name="c_1_text_center_title">#1C1D1F</color>
+    <!-- 状态栏背景色, 顶部导航背景色-->
+    <color name="color_half_gray">@color/c_1_img_press_f</color>
+</resources>

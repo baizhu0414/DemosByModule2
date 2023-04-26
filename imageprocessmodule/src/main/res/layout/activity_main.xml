@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_refresh"
+    <com.example.utillibrary.basicui.DemoActionBar
+        android:id="@+id/demo_action_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="刷新"
+        app:center_title="@string/app_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:right_text="@string/action_bar_r_t"
+        app:visible_ctr="@string/action_bar_visible" />
 
     <WebView
         android:id="@+id/web_show"
@@ -20,7 +22,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_refresh"
+        app:layout_constraintTop_toBottomOf="@+id/demo_action_bar"
         app:layout_constraintVertical_weight="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_half_gray"
+    app:layout_constraintHeight_min="@dimen/bar_min_height">
+
+    <!-- 后退按钮图片-->
+    <ImageView
+        android:id="@+id/action_bar_back_img"
+        android:layout_width="@dimen/h_1_img"
+        android:layout_height="@dimen/h_1_img"
+        android:paddingLeft="@dimen/h_1_img_padding"
+        android:paddingRight="@dimen/h_1_img_padding"
+        android:src="@drawable/action_bar_back_pic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 前进或其他多选项图片-->
+    <ImageView
+        android:id="@+id/action_bar_forward_img"
+        android:layout_width="@dimen/h_1_img"
+        android:layout_height="@dimen/h_1_img"
+        android:paddingLeft="@dimen/h_1_img_padding"
+        android:paddingRight="@dimen/h_1_img_padding"
+        android:src="@drawable/action_bar_forward_pic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 居中展示Title-->
+    <TextView
+        android:id="@+id/action_bar_center_title"
+        style="@style/action_bar_center_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/action_bar_back_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/action_bar_back_img" />
+
+    <!-- 左侧文字-->
+    <TextView
+        android:id="@+id/action_bar_left_text"
+        style="@style/action_bar_side_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/action_bar_back_img"
+        app:layout_constraintStart_toEndOf="@+id/action_bar_back_img"
+        app:layout_constraintTop_toTopOf="@id/action_bar_back_img" />
+
+    <!-- 右侧文字-->
+    <TextView
+        android:id="@+id/action_bar_right_text"
+        style="@style/action_bar_side_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/action_bar_forward_img"
+        app:layout_constraintEnd_toStartOf="@+id/action_bar_forward_img"
+        app:layout_constraintTop_toTopOf="@+id/action_bar_forward_img" />
+</androidx.constraintlayout.widget.ConstraintLayout>
