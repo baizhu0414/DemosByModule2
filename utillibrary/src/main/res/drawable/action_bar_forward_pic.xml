@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true">
+        <bitmap android:gravity="center" android:src="@drawable/back_normal" />
+        <color android:color="@color/c_1_img_press_t" />
+    </item>
+    <item android:state_pressed="false">
+        <bitmap android:gravity="center" android:src="@drawable/forward_normal" />
+        <color android:color="@color/c_1_img_press_f" />
+    </item>
+</selector>

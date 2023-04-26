@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- action bar居中标题-->
+    <style name="action_bar_center_title">
+        <item name="android:textSize">@dimen/h_1_title</item>
+        <item name="android:textColor">@color/c_1_text_center_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <!-- action bar左右标题-->
+    <style name="action_bar_side_text">
+        <item name="android:textSize">@dimen/h_2_title</item>
+        <item name="android:textColor">@color/c_1_text_center_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

@@ -4,14 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
-import android.view.View;
 import android.webkit.DownloadListener;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -35,7 +31,6 @@ public class MainActivity extends BaseActivity {
 
     private static final String TAG = "MainActivity";
     WebView webView;
-    Button btnRefresh;
     String URL = "https://bz.zzzmh.cn/index";
     String cookie;
 
@@ -46,7 +41,6 @@ public class MainActivity extends BaseActivity {
 
     public void initView() {
         webView = findViewById(R.id.web_show);
-        btnRefresh = findViewById(R.id.btn_refresh);
     }
 
     @Override
@@ -57,13 +51,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initListener(Context context) {
-        btnRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                webView.loadUrl(URL);
-                Toast.makeText(MainActivity.this, "Refresh", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     void initWebView() {

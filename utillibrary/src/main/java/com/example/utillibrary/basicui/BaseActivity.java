@@ -3,11 +3,14 @@ package com.example.utillibrary.basicui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.utillibrary.R;
 import com.example.utillibrary.database.sqlutil.DatabaseUtil;
 import com.example.utillibrary.fileutils.FileUtil;
 import com.example.utillibrary.normalutil.Utils;
@@ -27,6 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView();
         initParam();
         initListener(this);
+        configStatus();
         // 事件总线相关
 //        UIEvent.getInstance().register(initHandler());
     }
@@ -56,7 +60,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (PermissionUtil.isExternalManager()) {
+        if (requestCode == PermissionUtil.REQUEST_STORAGE_PERMISSION_CODE
+                && PermissionUtil.isExternalManager()) {
             Utils.makeText("授权外存管理权限成功。");
             FileUtil.foundFolder(Constant.APP_DOWNLOAD_PATH, getClass().getSimpleName());
         }
@@ -82,5 +87,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         synchronized (BaseActivity.class) {
             activities.remove(activity);
         }
+    }
+
+    private void configStatus() {
+        // 设置透明黑字要三步
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        // 设置背景颜色
+        getWindow().setStatusBarColor(getColor(R.color.color_half_gray));
     }
 }
