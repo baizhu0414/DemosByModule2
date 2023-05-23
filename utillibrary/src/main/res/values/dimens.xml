@@ -6,4 +6,8 @@
     <dimen name="h_1_img_padding">7dp</dimen>
     <dimen name="h_1_title">16dp</dimen>
     <dimen name="h_2_title">14dp</dimen>
+
+    <dimen name="forward_menu_width">175dp</dimen>
+    <dimen name="forward_menu_offset">25dp</dimen>
+    <dimen name="forward_menu_item_radius">8dp</dimen>
 </resources>

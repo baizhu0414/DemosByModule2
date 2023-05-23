@@ -6,7 +6,7 @@ Demo project of normal features.
 
 # How to use
 - com.example.utillibrary
-  - basicui:`BaseActivity, Constant, Application`.
+  - basicui:`BaseActivity, Constant, DemoApplication, DemoActionBar`.
   - database:`DatabaseUtil,SQLiteHelper`,etc.
   - fileutils:`FileUtil`.
   - httputils:`OkHttpUtil`.

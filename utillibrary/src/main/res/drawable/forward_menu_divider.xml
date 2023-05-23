@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- forward 菜单分割线-->
+<inset android:insetLeft="@dimen/forward_menu_item_radius"
+    android:insetRight="@dimen/forward_menu_item_radius"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <shape android:shape="rectangle">
+        <!--
+            开始颜色、中间颜色、结束颜色、
+            useLevel:false有渐变,要使用LevelListDrawable对象，就要设置为true、
+            angle:渐变角度(当angle=0时，渐变色是从左向右。 然后逆时针方向转，当angle=90时为从下往上。angle必须为45的整数倍)、
+            type:渐变类型(linear:线性,radial:放射性,sweep:扫描线式)、
+            centerX,centerY:渐变中心X、Y点坐标、
+            gradientRadius:渐变半径(type="radial"时有效)
+        -->
+        <gradient
+            android:startColor="@color/L_12"
+            android:centerColor="@color/L_11"
+            android:endColor="@color/L_8"
+            android:useLevel="false"
+            android:angle="0"
+            android:type="linear"
+            android:centerX="0"
+            android:centerY="0"
+            android:gradientRadius="50"/>
+        <size
+            android:width="@dimen/forward_menu_width"
+            android:height="1dp" />
+    </shape>
+</inset>

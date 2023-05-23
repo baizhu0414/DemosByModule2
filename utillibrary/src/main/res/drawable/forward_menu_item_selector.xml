@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- forward menu item点击效果-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/L_8" />
+            <corners android:radius="@dimen/forward_menu_item_radius" />
+        </shape>
+    </item>
+
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/L_12" />
+            <corners android:radius="@dimen/forward_menu_item_radius" />
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 菜单背景-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/L_12" />
+            <stroke android:width="1px" android:color="@color/L_8" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</selector>

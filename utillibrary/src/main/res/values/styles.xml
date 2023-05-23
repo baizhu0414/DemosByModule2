@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="forward_menu_anim">
+        <item name="android:windowEnterAnimation">@anim/forward_menu_in</item>
+        <item name="android:windowExitAnimation">@anim/forward_menu_out</item>
+    </style>
+</resources>

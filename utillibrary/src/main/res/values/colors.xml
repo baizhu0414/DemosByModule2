@@ -7,4 +7,19 @@
     <color name="c_1_text_center_title">#1C1D1F</color>
     <!-- 状态栏背景色, 顶部导航背景色-->
     <color name="color_half_gray">@color/c_1_img_press_f</color>
+    <!-- 背景白-->
+    <color name="L_0">#000000</color>
+    <color name="L_1">#1C1D1F</color>
+    <color name="L_2">#303133</color>
+    <color name="L_3">#4E4F52</color>
+    <color name="L_4">#77787A</color>
+    <color name="L_5">#9EA0A3</color>
+    <color name="L_6">#B4B5B8</color>
+    <color name="L_7">#C8C9CC</color>
+    <color name="L_8">#DCDDE0</color>
+    <color name="L_9">#E8E9EB</color>
+    <color name="L_10">#F2F3F5</color>
+    <color name="L_11">#FFFFFF</color>
+    <color name="L_12">#FDFDFD</color>
+    <color name="L_13">#E3E4E6</color>
 </resources>

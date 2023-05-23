@@ -109,5 +109,8 @@ public class DemoActionBar extends RelativeLayout {
         }
     }
 
+    public void setForwardListener(OnClickListener onClickListener) {
+        rightImgView.setOnClickListener(onClickListener);
+    }
 
 }

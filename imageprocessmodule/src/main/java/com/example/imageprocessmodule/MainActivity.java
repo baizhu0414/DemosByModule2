@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
+import android.view.ViewGroup;
 import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -13,6 +14,8 @@ import androidx.annotation.NonNull;
 
 import com.example.utillibrary.basicui.BaseActivity;
 import com.example.utillibrary.basicui.Constant;
+import com.example.utillibrary.basicui.DemoActionBar;
+import com.example.utillibrary.forward_menu.ui.ForwardMenuListener;
 import com.example.utillibrary.httputils.OkHttpUtil;
 import com.example.utillibrary.logutils.LogType;
 import com.example.utillibrary.logutils.LogUtil;
@@ -30,8 +33,10 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
 
     private static final String TAG = "MainActivity";
+    ViewGroup mainFrame;
+    DemoActionBar actionBar;
     WebView webView;
-    String URL = "https://bz.zzzmh.cn/index";
+    public static String URL = "https://bz.zzzmh.cn/index";
     String cookie;
 
     @Override
@@ -40,6 +45,8 @@ public class MainActivity extends BaseActivity {
     }
 
     public void initView() {
+        mainFrame = findViewById(R.id.main_frame);
+        actionBar = findViewById(R.id.demo_action_bar);
         webView = findViewById(R.id.web_show);
     }
 
@@ -51,6 +58,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initListener(Context context) {
+        actionBar.setForwardListener(new ForwardMenuListener(mainFrame, this));
     }
 
     void initWebView() {
