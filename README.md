@@ -9,6 +9,8 @@ Demo project of normal features.
   - basicui:`BaseActivity, Constant, DemoApplication, DemoActionBar`.
   - database:`DatabaseUtil,SQLiteHelper`,etc.
   - fileutils:`FileUtil`.
+  - forward_menu:`ForwardMenuLogic#initForwardMenu`.
+    - `Using 'ForwardMenuLogic' and 'basicui/DemoActionBar' in combination.`
   - httputils:`OkHttpUtil`.
   - imageutils:`ImageCutUtil`(not begin).
   - logutils:`LogUtil`.
